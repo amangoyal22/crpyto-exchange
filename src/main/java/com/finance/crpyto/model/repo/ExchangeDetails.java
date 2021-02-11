@@ -27,6 +27,5 @@ public class ExchangeDetails {
    * The Status.
    */
   @Field("status")
-  @Builder.Default
   private RepoEnum status = RepoEnum.ACTIVE;
 }
