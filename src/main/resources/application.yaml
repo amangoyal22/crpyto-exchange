@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: CrpytoService
+  data:
+    mongodb:
+      uri: mongodb+srv://bpuser:bpuser@book-purple-cluster-ukidg.mongodb.net/nocaa?retryWrites=true
+      database: nocaa
+
+server:
+  port: 8080
+  servlet:
+    contextPath: /crpyto-service
+
+in-memory-cache:
+  size: 10000 #different methods response which can be cached
+  ttl: PT10M # 10 Minutes
+
+rest-client:
+  binance:
+    connection-timeout: PT5S
+    read-timeout: PT10S
+retry-template:
+  back-off-period: PT1S
+  max-rety: 2
+thread-pool:
+  count: 21
