@@ -3,8 +3,8 @@ spring:
     name: CrpytoService
   data:
     mongodb:
-      uri: mongodb+srv://bpuser:bpuser@book-purple-cluster-ukidg.mongodb.net/nocaa?retryWrites=true
-      database: nocaa
+      uri: mongodb+srv://crpyto_exchange:XuyM9bh6vJUx49Vv@cluster0.hfbt1.mongodb.net/crpyto_exchange?retryWrites=true&w=majority
+      database: crpyto_exchange
 
 server:
   port: 8080
