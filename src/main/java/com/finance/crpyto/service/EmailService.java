@@ -59,7 +59,7 @@ public class EmailService {
       rd.close();
       log.info("Response of Email Service : {}", result);
     } catch (final Exception exp) {
-      log.error("Error while Sending Email {}", exp.getStackTrace());
+      log.error("Error while Sending Email {}", exp.getMessage());
     }
   }
 }
