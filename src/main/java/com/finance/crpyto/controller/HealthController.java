@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * The type Health check cron controller.
+ * The type Health controller.
  */
 @RestController
 public class HealthController {
@@ -28,5 +28,4 @@ public class HealthController {
   public ResponseEntity<String> getAppVersion() {
     return new ResponseEntity<>(appVersion, HttpStatus.OK);
   }
-
 }

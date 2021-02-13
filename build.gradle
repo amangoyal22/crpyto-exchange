@@ -30,7 +30,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     compile group: 'org.springframework.retry', name: 'spring-retry', version: '1.0.3.RELEASE'
 
-
     // lambok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -53,6 +52,9 @@ dependencies {
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // mail sending service
+    compile group: 'javax.mail', name: 'mail', version: '1.4.1'
 }
 
 test {

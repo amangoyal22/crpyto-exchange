@@ -24,3 +24,6 @@ retry-template:
   max-rety: 2
 thread-pool:
   count: 21
+email-service:
+  api-key: 600E9BC0A7DC168EAB8F0C9038592867CA6DDAA91D6052EB8CDFEA73B99009A61A41C0DD905FD85248A7F3079CC0C578
+  url: https://api.elasticemail.com/v2/email/send
