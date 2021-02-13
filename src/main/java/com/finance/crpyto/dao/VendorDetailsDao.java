@@ -1,5 +1,6 @@
 package com.finance.crpyto.dao;
 
+import com.finance.crpyto.enums.RepoEnum;
 import com.finance.crpyto.model.repo.VendorDetails;
 import com.finance.crpyto.repo.VendorDetailsRepo;
 import java.util.List;
@@ -29,11 +30,11 @@ public class VendorDetailsDao {
   }
 
   /**
-   * Find all list.
+   * Find all active list.
    *
    * @return the list
    */
-  public List<VendorDetails> findAll() {
-    return vendorDetailsRepo.findAll();
+  public List<VendorDetails> findAllActive() {
+    return vendorDetailsRepo.findAllByStatus(RepoEnum.ACTIVE.ordinal());
   }
 }

@@ -25,9 +25,8 @@ public class PopulateComponent {
    */
   public void populateAndUpdateExchangeList() {
 
-    final var listOfExchange = vendorDetailsDao.findAll()
+    final var listOfExchange = vendorDetailsDao.findAllActive()
         .stream()
-        .filter(vendorDetails -> RepoEnum.ACTIVE.ordinal() == vendorDetails.getStatus())
         .map(vendorDetails -> ExchangeRegistry.get(vendorDetails.getId()).getExchangeDetails())
         .collect(Collectors.toList()).stream()
         .flatMap(List::stream)
