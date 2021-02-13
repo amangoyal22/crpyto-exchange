@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SymbolDetails implements Serializable {
+public class SymbolDetail implements Serializable {
 
   /**
    * The Symbol.
