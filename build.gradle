@@ -53,8 +53,7 @@ dependencies {
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    // mail sending service
-    compile group: 'javax.mail', name: 'mail', version: '1.4.1'
+    implementation('commons-io:commons-io:2.6')
 }
 
 test {
