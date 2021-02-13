@@ -1,5 +1,9 @@
 package com.finance.crpyto.controller;
 
+import com.finance.crpyto.dao.VendorDetailsDao;
+import com.finance.crpyto.model.repo.VendorDetails;
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +23,9 @@ public class HealthController {
   @Value("${spring.application.name}")
   private String appVersion;
 
+  @Autowired
+  private VendorDetailsDao vendorDetailsDao;
+
   /**
    * Gets app version.
    *
@@ -27,5 +34,10 @@ public class HealthController {
   @GetMapping(path = {"/appVersion", "/status"}, produces = {MediaType.TEXT_PLAIN_VALUE})
   public ResponseEntity<String> getAppVersion() {
     return new ResponseEntity<>(appVersion, HttpStatus.OK);
+  }
+
+  @PostConstruct
+  public void test() {
+    vendorDetailsDao.save(VendorDetails.builder().name("binance").build());
   }
 }
