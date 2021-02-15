@@ -1,5 +1,7 @@
 package com.finance.crpyto.controller;
 
+import com.finance.crpyto.service.CandleStickCronService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +21,9 @@ public class HealthController {
   @Value("${spring.application.name}")
   private String appVersion;
 
+  @Autowired
+  private CandleStickCronService candleStickCronService;
+
   /**
    * Gets app version.
    *
@@ -26,6 +31,7 @@ public class HealthController {
    */
   @GetMapping(path = {"/appVersion", "/status"}, produces = {MediaType.TEXT_PLAIN_VALUE})
   public ResponseEntity<String> getAppVersion() {
+    candleStickCronService.executeExchangeCron();
     return new ResponseEntity<>(appVersion, HttpStatus.OK);
   }
 }

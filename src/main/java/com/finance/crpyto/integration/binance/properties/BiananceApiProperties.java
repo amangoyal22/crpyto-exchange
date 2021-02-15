@@ -31,4 +31,8 @@ public class BiananceApiProperties {
    * The Exchange list.
    */
   private SubPropertyModel exchangeList;
+  /**
+   * The Klines.
+   */
+  private SubPropertyModel klines;
 }

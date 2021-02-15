@@ -1,5 +1,6 @@
 package com.finance.crpyto.service;
 
+import com.finance.crpyto.components.CandleStickComponent;
 import com.finance.crpyto.components.ExchangeComponent;
 import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
@@ -8,16 +9,16 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Service;
 
 /**
- * The type Exchange cron service.
+ * The type Candle stick cron service.
  */
 @Service
 @AllArgsConstructor
-public class ExchangeCronService {
+public class CandleStickCronService {
 
   /**
-   * The Populate component.
+   * The Candle stick component.
    */
-  private final ExchangeComponent exchangeComponent;
+  private final CandleStickComponent candleStickComponent;
   /**
    * The Exchange task scheduler.
    */
@@ -30,8 +31,8 @@ public class ExchangeCronService {
   /**
    * Execute exchange cron.
    */
-  @PostConstruct
   public void executeExchangeCron() {
-    exchangeTaskScheduler.schedule(exchangeComponent,exchangeSymbolUpdate);
+    candleStickComponent.run();
+//    exchangeTaskScheduler.schedule(exchangeComponent,exchangeSymbolUpdate);
   }
 }

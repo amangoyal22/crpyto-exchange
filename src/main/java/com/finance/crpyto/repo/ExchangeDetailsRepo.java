@@ -6,16 +6,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * The interface Exchange details repo.
  */
-@Repository
 public interface ExchangeDetailsRepo extends MongoRepository<ExchangeDetails, String> {
 
   /**
-   * Find first by symbol and vendor id and status optional.
+   * Find by symbol and vendor id and status optional.
    *
    * @param symbol   the symbol
    * @param vendorId the vendor id
@@ -27,12 +25,21 @@ public interface ExchangeDetailsRepo extends MongoRepository<ExchangeDetails, St
                                                              final RepoEnum repoEnum);
 
   /**
-   * Find by updated at before and status optional.
+   * Find by updated at before and status list.
    *
    * @param date     the date
    * @param repoEnum the repo enum
-   * @return the optional
+   * @return the list
    */
   List<ExchangeDetails> findByUpdatedAtBeforeAndStatus(final Date date,
                                                        final RepoEnum repoEnum);
+
+
+  /**
+   * Find all by status list.
+   *
+   * @param repoEnum the repo enum
+   * @return the list
+   */
+  List<ExchangeDetails> findAllByStatus(final RepoEnum repoEnum);
 }

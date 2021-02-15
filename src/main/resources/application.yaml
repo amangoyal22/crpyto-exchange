@@ -34,6 +34,8 @@ vendors:
     path-segment: api/v3
     exchange-list:
       path: exchangeInfo
+    klines:
+      path: klines
 exchange:
   expiry: 3
 crons:

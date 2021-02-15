@@ -6,7 +6,6 @@ import com.finance.crpyto.repo.ExchangeDetailsRepo;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +51,14 @@ public class ExchangeDetailsDao {
    */
   public List<ExchangeDetails> findByBeforeUpdatedAt(final Date date) {
     return exchangeDetailsRepo.findByUpdatedAtBeforeAndStatus(date, RepoEnum.ACTIVE);
+  }
+
+  /**
+   * Find all active list.
+   *
+   * @return the list
+   */
+  public List<ExchangeDetails> findAllActive() {
+    return exchangeDetailsRepo.findAllByStatus(RepoEnum.ACTIVE);
   }
 }

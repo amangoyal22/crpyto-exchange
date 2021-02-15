@@ -65,11 +65,13 @@ public class ExchangeDetails {
    */
   @Field("base_commission_precision")
   private int baseCommissionPrecision;
+
   /**
    * The Quote commission precision.
    */
   @Field("quote_commission_precision")
   private int quoteCommissionPrecision;
+
   /**
    * The Status.
    */

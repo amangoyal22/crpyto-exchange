@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * The type Populate component.
+ * The type Exchange component.
  */
 @Component
 @AllArgsConstructor
 @Slf4j
-public class PopulateComponent implements Runnable {
+public class ExchangeComponent implements Runnable {
 
   /**
    * The Vendor details dao.
