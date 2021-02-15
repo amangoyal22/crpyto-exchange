@@ -40,5 +40,5 @@ public class VendorDetails {
    */
   @Field("status")
   @Builder.Default
-  private int status = RepoEnum.ACTIVE.ordinal();
+  private RepoEnum status = RepoEnum.ACTIVE;
 }

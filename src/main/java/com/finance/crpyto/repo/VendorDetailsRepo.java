@@ -1,5 +1,6 @@
 package com.finance.crpyto.repo;
 
+import com.finance.crpyto.enums.RepoEnum;
 import com.finance.crpyto.model.repo.VendorDetails;
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,5 +16,5 @@ public interface VendorDetailsRepo extends MongoRepository<VendorDetails, String
    * @param status the status
    * @return the list
    */
-  List<VendorDetails> findAllByStatus(final int status);
+  List<VendorDetails> findAllByStatus(final RepoEnum status);
 }

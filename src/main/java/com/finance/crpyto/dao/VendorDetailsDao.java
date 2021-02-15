@@ -35,6 +35,6 @@ public class VendorDetailsDao {
    * @return the list
    */
   public List<VendorDetails> findAllActive() {
-    return vendorDetailsRepo.findAllByStatus(RepoEnum.ACTIVE.ordinal());
+    return vendorDetailsRepo.findAllByStatus(RepoEnum.ACTIVE);
   }
 }

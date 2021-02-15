@@ -1,6 +1,8 @@
 package com.finance.crpyto.model.repo;
 
 import com.finance.crpyto.enums.RepoEnum;
+import java.time.Instant;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -72,5 +74,13 @@ public class ExchangeDetails {
    * The Status.
    */
   @Field("status")
+  @Builder.Default
   private RepoEnum status = RepoEnum.ACTIVE;
+
+  /**
+   * The Updated at.
+   */
+  @Field("updated_at")
+  @Builder.Default
+  private Date updatedAt = Date.from(Instant.now());
 }

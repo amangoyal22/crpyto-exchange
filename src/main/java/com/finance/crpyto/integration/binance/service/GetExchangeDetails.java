@@ -62,7 +62,7 @@ public class GetExchangeDetails implements IExchange {
           responseMapper.generateListOfExchangeDetails(
               response.getSymbols(),
               VendorEnum.BINANCE.getId()));
-      log.info("{}", response.getSymbols().size());
+      log.info("Total Exchange details recieved: {}", exchangeDetails.size());
     }
     return exchangeDetails;
   }
