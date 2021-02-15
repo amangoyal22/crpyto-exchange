@@ -29,8 +29,14 @@ email-service:
   url: https://api.elasticemail.com/v2/email/send
 vendors:
   binance:
-    scheme: ${HEADOUT_SCHEME:https}
-    host: ${HEADOUT_HOST:api1.binance.com}
+    scheme: ${BINANCE_SCHEME:https}
+    host: ${BINANCE_HOST:api1.binance.com}
     path-segment: api/v3
     exchange-list:
       path: exchangeInfo
+exchange:
+  expiry: 3
+crons:
+  exhange-symbol:
+    init-delay: PT2S
+    periodic-gap: PT24H

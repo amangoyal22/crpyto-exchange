@@ -2,6 +2,7 @@ package com.finance.crpyto.integration.binance.service;
 
 import com.finance.crpyto.enums.VendorEnum;
 import com.finance.crpyto.integration.IExchange;
+import com.finance.crpyto.integration.binance.mapper.ResponseMapper;
 import com.finance.crpyto.integration.binance.model.ExchangeListResponse;
 import com.finance.crpyto.integration.binance.properties.BiananceApiProperties;
 import com.finance.crpyto.model.repo.ExchangeDetails;
@@ -42,6 +43,10 @@ public class GetExchangeDetails implements IExchange {
    * The Rest utils.
    */
   private final RestUtils restUtils;
+  /**
+   * The Response mapper.
+   */
+  private final ResponseMapper responseMapper;
 
   /**
    * Gets exchange details.
@@ -53,7 +58,11 @@ public class GetExchangeDetails implements IExchange {
     final var exchangeDetails = new ArrayList<ExchangeDetails>();
     final var response = apiCall();
     if (Objects.nonNull(response)) {
-      log.info("{}", response.getSymbols().size());
+      exchangeDetails.addAll(
+          responseMapper.generateListOfExchangeDetails(
+              response.getSymbols(),
+              VendorEnum.BINANCE.getId()));
+      log.info("Total Exchange details recieved: {}", exchangeDetails.size());
     }
     return exchangeDetails;
   }

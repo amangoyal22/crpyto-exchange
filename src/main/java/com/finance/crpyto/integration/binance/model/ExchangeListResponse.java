@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
-import org.bson.types.Symbol;
 
 /**
  * The type Exchange list response.
@@ -35,5 +34,5 @@ public class ExchangeListResponse implements Serializable {
    * The Symbols.
    */
   @JsonProperty("symbols")
-  private List<SymbolDetails> symbols;
+  private List<SymbolDetail> symbols;
 }
