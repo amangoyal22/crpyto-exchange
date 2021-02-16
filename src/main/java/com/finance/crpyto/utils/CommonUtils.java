@@ -35,9 +35,9 @@ public final class CommonUtils {
    * @return the past date
    */
   public static Date getPastDate(final int days) {
-    return Date.from(
-        Instant.now().minus(
-            days, ChronoUnit.DAYS));
+    final var instant =
+        ZonedDateTime.now(Clock.systemUTC()).toInstant().minus(days, ChronoUnit.DAYS);
+    return getTimeFromMiliToDateInUTC(instant.toEpochMilli());
   }
 
   /**
