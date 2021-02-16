@@ -31,7 +31,6 @@ public class HealthController {
    */
   @GetMapping(path = {"/appVersion", "/status"}, produces = {MediaType.TEXT_PLAIN_VALUE})
   public ResponseEntity<String> getAppVersion() {
-    candleStickCronService.executeExchangeCron();
     return new ResponseEntity<>(appVersion, HttpStatus.OK);
   }
 }

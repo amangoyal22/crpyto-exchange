@@ -42,3 +42,6 @@ crons:
   exhange-symbol:
     init-delay: PT2S
     periodic-gap: PT24H
+  candlesticks:
+    init-delay: PT1S
+    periodic-gap: PT1M

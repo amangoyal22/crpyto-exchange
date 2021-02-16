@@ -20,19 +20,18 @@ public class CandleStickCronService {
    */
   private final CandleStickComponent candleStickComponent;
   /**
-   * The Exchange task scheduler.
+   * The Candlesticks task scheduler.
    */
-  private final ThreadPoolTaskScheduler exchangeTaskScheduler;
+  private final ThreadPoolTaskScheduler candlesticksTaskScheduler;
   /**
-   * The Exchange symbol update.
+   * The Candlesticks update.
    */
-  private final PeriodicTrigger exchangeSymbolUpdate;
+  private final PeriodicTrigger candlesticksUpdate;
 
   /**
    * Execute exchange cron.
    */
   public void executeExchangeCron() {
-    candleStickComponent.run();
-//    exchangeTaskScheduler.schedule(exchangeComponent,exchangeSymbolUpdate);
+    candlesticksTaskScheduler.schedule(candleStickComponent,candlesticksUpdate);
   }
 }
