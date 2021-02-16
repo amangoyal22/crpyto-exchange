@@ -1,13 +1,7 @@
 package com.finance.crpyto.dao;
 
-import com.finance.crpyto.enums.RepoEnum;
 import com.finance.crpyto.model.repo.CandleStickDetails;
-import com.finance.crpyto.model.repo.ExchangeDetails;
 import com.finance.crpyto.repo.CandleStickDetailsRepo;
-import com.finance.crpyto.repo.ExchangeDetailsRepo;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -31,6 +31,7 @@ public class CandleStickCronService {
   /**
    * Execute exchange cron.
    */
+  @PostConstruct
   public void executeExchangeCron() {
     candlesticksTaskScheduler.schedule(candleStickComponent,candlesticksUpdate);
   }
