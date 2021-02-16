@@ -1,7 +1,6 @@
 package com.finance.crpyto.service;
 
 import com.finance.crpyto.components.CandleStickComponent;
-import com.finance.crpyto.components.ExchangeComponent;
 import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -33,6 +32,6 @@ public class CandleStickCronService {
    */
   @PostConstruct
   public void executeExchangeCron() {
-    candlesticksTaskScheduler.schedule(candleStickComponent,candlesticksUpdate);
+    candlesticksTaskScheduler.schedule(candleStickComponent, candlesticksUpdate);
   }
 }

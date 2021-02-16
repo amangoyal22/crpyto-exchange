@@ -27,4 +27,11 @@ public class CandleSticksDetailsDao {
   public CandleStickDetails save(final CandleStickDetails candleStickDetails) {
     return candleStickDetailsRepo.save(candleStickDetails);
   }
+
+  /**
+   * Delete all.
+   */
+  public void deleteAll() {
+    candleStickDetailsRepo.deleteAll();
+  }
 }

@@ -4,6 +4,7 @@ import com.finance.crpyto.dao.CandleSticksDetailsDao;
 import com.finance.crpyto.dao.ExchangeDetailsDao;
 import com.finance.crpyto.registries.CandleSticksRegistry;
 import com.finance.crpyto.utils.CommonUtils;
+import java.util.Collections;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -32,8 +33,10 @@ public class CandleStickComponent implements Runnable {
   public void run() {
     try {
       final long time = CommonUtils.getCurrentMinuteMillisUTC();
-      log.info("Cron Running For CandleSticks At {}",time);
-      exchangeDetailsDao.findAllActive()
+      log.info("Cron Running For CandleSticks At {}", time);
+      final var listofExchange = exchangeDetailsDao.findAllActive();
+      Collections.shuffle(listofExchange);
+      listofExchange
           .parallelStream()
           .map(exchangeDetails ->
               CandleSticksRegistry.get(exchangeDetails.getVendorId())
