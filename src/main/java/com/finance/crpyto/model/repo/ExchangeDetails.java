@@ -83,6 +83,5 @@ public class ExchangeDetails {
    * The Updated at.
    */
   @Field("updated_at")
-  @Builder.Default
-  private Date updatedAt = Date.from(Instant.now());
+  private Date updatedAt;
 }

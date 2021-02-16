@@ -10,9 +10,7 @@ import com.finance.crpyto.model.repo.CandleStickDetails;
 import com.finance.crpyto.registries.CandleSticksRegistry;
 import com.finance.crpyto.utils.CommonUtils;
 import com.finance.crpyto.utils.RestUtils;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,9 +56,9 @@ public class GetCandleSticks implements ICandleSticks {
    */
   @Override
   public CandleStickDetails getCandleStickFor1m(final long time, final String symbol) {
-    final var response = apiCall(symbol);
+    final var response = apiCall(symbol, time);
     return responseMapper.generateCandleStickDetails(
-        response, symbol, VendorEnum.BINANCE);
+        response, symbol, VendorEnum.BINANCE, time);
   }
 
   /**
@@ -78,9 +76,10 @@ public class GetCandleSticks implements ICandleSticks {
    * @param symbol the symbol
    * @return the klines details
    */
-  private KlinesDetails apiCall(final String symbol) {
+  private KlinesDetails apiCall(final String symbol,
+                                final long startTime) {
     try {
-      final var request = binanceAsyncHttpClient.prepareGet(getKlinesUrl(symbol))
+      final var request = binanceAsyncHttpClient.prepareGet(getKlinesUrl(symbol, startTime))
           .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
           .build();
       log.info("Binance Kline Info url: {}", request.getUrl());
@@ -99,7 +98,8 @@ public class GetCandleSticks implements ICandleSticks {
    * @param symbol the symbol
    * @return the klines url
    */
-  private String getKlinesUrl(final String symbol) {
+  private String getKlinesUrl(final String symbol,
+                              final long startTime) {
 
     return new HttpUrl.Builder()
         .scheme(biananceApiProperties.getScheme())
@@ -107,6 +107,7 @@ public class GetCandleSticks implements ICandleSticks {
         .addPathSegments(biananceApiProperties.getPathSegment())
         .addPathSegment(biananceApiProperties.getKlines().getPath())
         .addQueryParameter(ParameterConstantUtils.SYMBOL, symbol)
+        .addQueryParameter(ParameterConstantUtils.START_TIME, String.valueOf(startTime))
         .addQueryParameter(
             ParameterConstantUtils.INTERVAL, ParameterConstantUtils.INTERVAL_VALUE_1M)
         .addQueryParameter(ParameterConstantUtils.LIMIT, ParameterConstantUtils.LIMIT_VALUE)

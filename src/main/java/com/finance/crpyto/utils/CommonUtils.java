@@ -3,9 +3,12 @@ package com.finance.crpyto.utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Clock;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.TimeZone;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +35,9 @@ public final class CommonUtils {
    * @return the past date
    */
   public static Date getPastDate(final int days) {
-    return Date.from(
-        Instant.now().minus(
-            days, ChronoUnit.DAYS));
+    final var instant =
+        ZonedDateTime.now(Clock.systemUTC()).toInstant().minus(days, ChronoUnit.DAYS);
+    return getTimeFromMiliToDateInUTC(instant.toEpochMilli());
   }
 
   /**
@@ -52,5 +55,27 @@ public final class CommonUtils {
       log.error("Error while conversion");
     }
     return null;
+  }
+
+  /**
+   * Gets current minute millis utc.
+   *
+   * @return the current minute millis utc
+   */
+  public static long getCurrentMinuteMillisUTC() {
+    return ZonedDateTime.now(Clock.systemUTC()).toInstant()
+        .truncatedTo(ChronoUnit.MINUTES)
+        .toEpochMilli();
+  }
+
+  /**
+   * Gets time from mili to date in utc.
+   *
+   * @param epoch the epoch
+   * @return the time from mili to date in utc
+   */
+  public static Date getTimeFromMiliToDateInUTC(final long epoch) {
+    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    return Date.from(Instant.ofEpochMilli(epoch));
   }
 }

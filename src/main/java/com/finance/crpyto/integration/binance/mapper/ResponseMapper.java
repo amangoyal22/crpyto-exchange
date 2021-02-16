@@ -7,7 +7,7 @@ import com.finance.crpyto.integration.binance.model.KlinesDetails;
 import com.finance.crpyto.integration.binance.model.SymbolDetail;
 import com.finance.crpyto.model.repo.CandleStickDetails;
 import com.finance.crpyto.model.repo.ExchangeDetails;
-import java.util.Date;
+import com.finance.crpyto.utils.CommonUtils;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -50,15 +50,16 @@ public interface ResponseMapper {
   default CandleStickDetails generateCandleStickDetails(
       final KlinesDetails klinesDetails,
       final String symbol,
-      final VendorEnum vendorEnum) {
+      final VendorEnum vendorEnum,
+      final long time) {
 
     final var candleStickDetailsBuilder = CandleStickDetails.builder();
 
     if (Objects.nonNull(klinesDetails)) {
       candleStickDetailsBuilder
           .close(klinesDetails.getClose())
-          .closeTime(new Date(klinesDetails.getCloseTime()))
-          .openTime(new Date(klinesDetails.getOpenTime()))
+          .closeTime(CommonUtils.getTimeFromMiliToDateInUTC(klinesDetails.getCloseTime()))
+          .openTime(CommonUtils.getTimeFromMiliToDateInUTC(klinesDetails.getOpenTime()))
           .open(klinesDetails.getOpen())
           .high(klinesDetails.getHigh())
           .low(klinesDetails.getLow())
@@ -71,7 +72,7 @@ public interface ResponseMapper {
     return candleStickDetailsBuilder
         .symbol(symbol)
         .vendorId(vendorEnum.getId())
-        .timestamp(new Date())
+        .timestamp(CommonUtils.getTimeFromMiliToDateInUTC(time))
         .status(RepoEnum.ACTIVE)
         .build();
   }
@@ -97,6 +98,9 @@ public interface ResponseMapper {
           .quoteAssestPrecision(symbolDetail.getQuotePrecision())
           .quoteCommissionPrecision(symbolDetail.getQuoteCommissionPrecision())
           .baseCommissionPrecision(symbolDetail.getBaseCommissionPrecision())
+          .updatedAt(
+              CommonUtils.getTimeFromMiliToDateInUTC(
+                  CommonUtils.getCurrentMinuteMillisUTC()))
           .status(RepoEnum.ACTIVE)
           .build();
     }
