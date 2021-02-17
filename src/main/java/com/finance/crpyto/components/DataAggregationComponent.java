@@ -57,6 +57,7 @@ public class DataAggregationComponent {
                   aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
       if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_15
           == ConfigConstantUtils.DEFAULT_INTEGER) {
+        log.info("Fifteen min executed");
         runForFifteenMins(time);
       }
     } catch (final Exception exp) {
@@ -82,10 +83,11 @@ public class DataAggregationComponent {
 
       if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_30
           == ConfigConstantUtils.DEFAULT_INTEGER) {
+        log.info("Thirty min executed");
         runForThirtyMins(time);
       }
     } catch (final Exception exp) {
-      log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
+      log.error("Error while Updating the Aggregating 15 min: {}", exp.getMessage());
     }
   }
 
@@ -104,8 +106,14 @@ public class DataAggregationComponent {
           .forEach((symbol, candleStickDetails) ->
               fiveMinutesDataDao.save(
                   aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
+
+      if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_60
+          == ConfigConstantUtils.DEFAULT_INTEGER) {
+        log.info("Thirty min executed");
+        runForThirtyMins(time);
+      }
     } catch (final Exception exp) {
-      log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
+      log.error("Error while Updating the Aggregating 30 min: {}", exp.getMessage());
     }
   }
 
@@ -125,7 +133,7 @@ public class DataAggregationComponent {
               fiveMinutesDataDao.save(
                   aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
     } catch (final Exception exp) {
-      log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
+      log.error("Error while Updating the Aggregating 60 min: {}", exp.getMessage());
     }
   }
 }

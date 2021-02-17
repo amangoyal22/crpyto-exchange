@@ -17,6 +17,10 @@ public interface DataAggregationConstantUtils {
    */
   int MIN_30 = 30;
   /**
+   * The constant MIN_60.
+   */
+  int MIN_60 = 60;
+  /**
    * The constant MIN_5_MINUS.
    */
   int MIN_5_MINUS = -5;
