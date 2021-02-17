@@ -63,6 +63,7 @@ public interface AggregationDataMapper {
       data.setOpen(firstStick.getOpen());
       data.setOpenTime(firstStick.getOpenTime());
     }
+    data.setFailureRate(data.getFailureRate() / candleStickDetails.size());
     data.setTimestamp(CommonUtils.getTimeFromMiliToDateInUTC(timeStamp));
     return data;
   }
