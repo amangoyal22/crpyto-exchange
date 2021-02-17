@@ -38,7 +38,6 @@ public interface AggregationDataMapper {
     candleStickDetails.forEach(candleStickDetail -> {
       data.setVendorId(candleStickDetail.getVendorId());
       data.setNumberOfTrades(data.getNumberOfTrades() + candleStickDetail.getNumberOfTrades());
-      data.setHigh(data.getNumberOfTrades() + candleStickDetail.getNumberOfTrades());
       data.setLow(Math.min(data.getLow(), candleStickDetail.getLow()));
       data.setHigh(Math.max(data.getHigh(), candleStickDetail.getHigh()));
       data.setVolume(
