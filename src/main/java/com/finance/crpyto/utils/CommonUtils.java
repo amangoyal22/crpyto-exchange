@@ -7,6 +7,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import lombok.AccessLevel;
@@ -77,5 +78,34 @@ public final class CommonUtils {
   public static Date getTimeFromMiliToDateInUTC(final long epoch) {
     TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     return Date.from(Instant.ofEpochMilli(epoch));
+  }
+
+  /**
+   * Gets date minus.
+   *
+   * @param time  the time
+   * @param field the field
+   * @param value the value
+   * @return the date minus
+   */
+  public static Date getDateMinus(final long time,
+                                  final int field,
+                                  final int value) {
+    final var cal = Calendar.getInstance();
+    cal.setTime(getTimeFromMiliToDateInUTC(time));
+    cal.add(field, value);
+    return cal.getTime();
+  }
+
+  /**
+   * Gets utc minutes.
+   *
+   * @param time the time
+   * @return the utc minutes
+   */
+  public static int getUTCMinutes(final long time) {
+    final var cal = Calendar.getInstance();
+    cal.setTime(getTimeFromMiliToDateInUTC(time));
+    return cal.get(Calendar.MINUTE);
   }
 }
