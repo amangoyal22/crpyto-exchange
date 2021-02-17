@@ -1,8 +1,7 @@
 package com.finance.crpyto.dao;
 
-import com.finance.crpyto.model.repo.FiveMinutesDataDetails;
 import com.finance.crpyto.model.repo.SixtyMinutesDataDetails;
-import com.finance.crpyto.repo.FiveMinutesDataRepo;
+import com.finance.crpyto.repo.SixtyMinutesDataRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ public class SixtyMinutesDataDao {
   /**
    * The Sixty minutes data dao.
    */
-  private final SixtyMinutesDataDao sixtyMinutesDataDao;
+  private final SixtyMinutesDataRepo sixtyMinutesDataRepo;
 
 
   /**
@@ -25,6 +24,6 @@ public class SixtyMinutesDataDao {
    * @param sixtyMinutesDataDetails the sixty minutes data details
    */
   public void save(final SixtyMinutesDataDetails sixtyMinutesDataDetails) {
-    sixtyMinutesDataDao.save(sixtyMinutesDataDetails);
+    sixtyMinutesDataRepo.save(sixtyMinutesDataDetails);
   }
 }
