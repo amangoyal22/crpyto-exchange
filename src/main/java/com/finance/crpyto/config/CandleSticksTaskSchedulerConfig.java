@@ -1,6 +1,8 @@
 package com.finance.crpyto.config;
 
 import java.time.Duration;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,7 +31,13 @@ public class CandleSticksTaskSchedulerConfig {
   private String initDelay;
 
   /**
-   * Candlesticks symbol update periodic trigger.
+   * The Count.
+   */
+  @Value("${crons.candlesticks.thread-pool-count}")
+  private int count;
+
+  /**
+   * Candlesticks update periodic trigger.
    *
    * @return the periodic trigger
    */
@@ -56,5 +64,10 @@ public class CandleSticksTaskSchedulerConfig {
     threadPoolTaskScheduler.setPoolSize(25);
     threadPoolTaskScheduler.setThreadNamePrefix("CandlesticksTaskScheduler");
     return threadPoolTaskScheduler;
+  }
+
+  @Bean
+  public ExecutorService candlesticksExecutorService() {
+    return Executors.newFixedThreadPool(count);
   }
 }

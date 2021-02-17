@@ -1,7 +1,10 @@
 package com.finance.crpyto.dao;
 
+import com.finance.crpyto.enums.RepoEnum;
 import com.finance.crpyto.model.repo.CandleStickDetails;
 import com.finance.crpyto.repo.CandleStickDetailsRepo;
+import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +22,12 @@ public class CandleSticksDetailsDao {
 
 
   /**
-   * Save candle stick details.
+   * Save.
    *
    * @param candleStickDetails the candle stick details
-   * @return the candle stick details
    */
-  public CandleStickDetails save(final CandleStickDetails candleStickDetails) {
-    return candleStickDetailsRepo.save(candleStickDetails);
+  public void save(final CandleStickDetails candleStickDetails) {
+    candleStickDetailsRepo.save(candleStickDetails);
   }
 
   /**
@@ -33,5 +35,18 @@ public class CandleSticksDetailsDao {
    */
   public void deleteAll() {
     candleStickDetailsRepo.deleteAll();
+  }
+
+  /**
+   * Find by time stamp list.
+   *
+   * @param upperLimit the upper limit
+   * @param lowerLimit the lower limit
+   * @return the list
+   */
+  public List<CandleStickDetails> findByTimeStamp(final Date upperLimit,
+                                                  final Date lowerLimit) {
+    return candleStickDetailsRepo.findByTimestampBetweenAndStatusOrderByTimestampAsc(
+        lowerLimit, upperLimit, RepoEnum.ACTIVE);
   }
 }

@@ -30,7 +30,6 @@ public class ExchangeCronService {
   /**
    * Execute exchange cron.
    */
-  @PostConstruct
   public void executeExchangeCron() {
     exchangeTaskScheduler.schedule(exchangeComponent,exchangeSymbolUpdate);
   }

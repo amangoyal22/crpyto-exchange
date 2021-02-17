@@ -70,7 +70,7 @@ public class RestUtils {
     final var response = asyncHttpClient.executeRequest(request).get();
 
     if (!validateResponse(response)) {
-      log.error("error in rest call request {} response {}", request.getUrl(), response);
+      log.debug("error in rest call request {} response {}", request.getUrl(), response);
       throw new CrpytoException("error in rest call ");
     }
 

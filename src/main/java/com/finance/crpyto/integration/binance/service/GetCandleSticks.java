@@ -1,12 +1,12 @@
 package com.finance.crpyto.integration.binance.service;
 
+import com.finance.crpyto.dao.CandleSticksDetailsDao;
 import com.finance.crpyto.enums.VendorEnum;
 import com.finance.crpyto.integration.ICandleSticks;
 import com.finance.crpyto.integration.binance.constant.ParameterConstantUtils;
 import com.finance.crpyto.integration.binance.mapper.ResponseMapper;
 import com.finance.crpyto.integration.binance.model.KlinesDetails;
 import com.finance.crpyto.integration.binance.properties.BiananceApiProperties;
-import com.finance.crpyto.model.repo.CandleStickDetails;
 import com.finance.crpyto.registries.CandleSticksRegistry;
 import com.finance.crpyto.utils.CommonUtils;
 import com.finance.crpyto.utils.RestUtils;
@@ -55,10 +55,13 @@ public class GetCandleSticks implements ICandleSticks {
    * @return the candle stick for 1 m
    */
   @Override
-  public CandleStickDetails getCandleStickFor1m(final long time, final String symbol) {
+  public void getCandleStickFor1m(final long time,
+                                  final String symbol,
+                                  final CandleSticksDetailsDao candleSticksDetailsDao) {
     final var response = apiCall(symbol, time);
-    return responseMapper.generateCandleStickDetails(
-        response, symbol, VendorEnum.BINANCE, time);
+    candleSticksDetailsDao.save(
+        responseMapper.generateCandleStickDetails(
+            response, symbol, VendorEnum.BINANCE, time));
   }
 
   /**
@@ -82,12 +85,13 @@ public class GetCandleSticks implements ICandleSticks {
       final var request = binanceAsyncHttpClient.prepareGet(getKlinesUrl(symbol, startTime))
           .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
           .build();
-      log.info("Binance Kline Info url: {}", request.getUrl());
       final var response = restUtils.execute(request, binanceAsyncHttpClient);
       return responseMapper.getKlinesDetails1m(
           (List) CommonUtils.getObjectFromString(List.class, response.getResponseBody()));
     } catch (final Exception exp) {
-      log.error("Error while calling Kline {}", exp.getMessage());
+      log.error("Error while calling Kline {} For Time {}",
+          exp.getMessage(),
+          CommonUtils.getTimeFromMiliToDateInUTC(startTime));
       return null;
     }
   }

@@ -45,3 +45,4 @@ crons:
   candlesticks:
     init-delay: PT1S
     periodic-gap: PT1M
+    thread-pool-count: 50
