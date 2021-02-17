@@ -52,4 +52,64 @@ public class DataAggregationComponent {
       log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
     }
   }
+
+  /**
+   * Run for fifteen mins.
+   *
+   * @param time the time
+   */
+  public void runForFifteenMins(final long time) {
+    try {
+      candleSticksDetailsDao.findByTimeStamp(
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
+          .stream()
+          .collect(Collectors.groupingBy(CandleStickDetails::getSymbol))
+          .forEach((symbol, candleStickDetails) ->
+              fiveMinutesDataDao.save(
+                  aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
+    } catch (final Exception exp) {
+      log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
+    }
+  }
+
+  /**
+   * Run for thirty mins.
+   *
+   * @param time the time
+   */
+  public void runForThirtyMins(final long time) {
+    try {
+      candleSticksDetailsDao.findByTimeStamp(
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
+          .stream()
+          .collect(Collectors.groupingBy(CandleStickDetails::getSymbol))
+          .forEach((symbol, candleStickDetails) ->
+              fiveMinutesDataDao.save(
+                  aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
+    } catch (final Exception exp) {
+      log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
+    }
+  }
+
+  /**
+   * Run for sixty mins.
+   *
+   * @param time the time
+   */
+  public void runForSixtyMins(final long time) {
+    try {
+      candleSticksDetailsDao.findByTimeStamp(
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
+          .stream()
+          .collect(Collectors.groupingBy(CandleStickDetails::getSymbol))
+          .forEach((symbol, candleStickDetails) ->
+              fiveMinutesDataDao.save(
+                  aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
+    } catch (final Exception exp) {
+      log.error("Error while Updating the Aggregating 5 min: {}", exp.getMessage());
+    }
+  }
 }
