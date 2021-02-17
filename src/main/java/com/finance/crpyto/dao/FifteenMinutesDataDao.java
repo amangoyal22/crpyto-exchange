@@ -1,6 +1,10 @@
 package com.finance.crpyto.dao;
 
+import com.finance.crpyto.enums.RepoEnum;
 import com.finance.crpyto.model.repo.FifteenMinutesDataDetails;
+import com.finance.crpyto.repo.FifteenMinutesDataRepo;
+import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +18,7 @@ public class FifteenMinutesDataDao {
   /**
    * The Fifteen minutes data dao.
    */
-  private final FifteenMinutesDataDao fifteenMinutesDataDao;
+  private final FifteenMinutesDataRepo fifteenMinutesDataRepo;
 
 
   /**
@@ -23,6 +27,20 @@ public class FifteenMinutesDataDao {
    * @param fifteenMinutesDataDetails the fifteen minutes data details
    */
   public void save(final FifteenMinutesDataDetails fifteenMinutesDataDetails) {
-    fifteenMinutesDataDao.save(fifteenMinutesDataDetails);
+    fifteenMinutesDataRepo.save(fifteenMinutesDataDetails);
+  }
+
+  /**
+   * Find by time stamp list.
+   *
+   * @param upperLimit the upper limit
+   * @param lowerLimit the lower limit
+   * @return the list
+   */
+  public List<FifteenMinutesDataDetails> findByTimeStamp(
+      final Date upperLimit,
+      final Date lowerLimit) {
+    return fifteenMinutesDataRepo.findByTimestampBetweenAndStatusOrderByTimestampAsc(
+        lowerLimit, upperLimit, RepoEnum.ACTIVE);
   }
 }

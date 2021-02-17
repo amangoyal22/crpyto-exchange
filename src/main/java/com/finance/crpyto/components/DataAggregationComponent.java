@@ -5,8 +5,10 @@ import com.finance.crpyto.constant.DataAggregationConstantUtils;
 import com.finance.crpyto.dao.CandleSticksDetailsDao;
 import com.finance.crpyto.dao.FifteenMinutesDataDao;
 import com.finance.crpyto.dao.FiveMinutesDataDao;
+import com.finance.crpyto.dao.ThirtyMinutesDataDao;
 import com.finance.crpyto.mapper.AggregationDataMapper;
 import com.finance.crpyto.model.repo.CandleStickDetails;
+import com.finance.crpyto.model.repo.FifteenMinutesDataDetails;
 import com.finance.crpyto.model.repo.FiveMinutesDataDetails;
 import com.finance.crpyto.utils.CommonUtils;
 import java.util.Calendar;
@@ -39,6 +41,10 @@ public class DataAggregationComponent {
    * The Fifteen minutes data dao.
    */
   private final FifteenMinutesDataDao fifteenMinutesDataDao;
+  /**
+   * The Thirty minutes data dao.
+   */
+  private final ThirtyMinutesDataDao thirtyMinutesDataDao;
 
   /**
    * Run for five mins.
@@ -98,19 +104,19 @@ public class DataAggregationComponent {
    */
   public void runForThirtyMins(final long time) {
     try {
-      candleSticksDetailsDao.findByTimeStamp(
+      fifteenMinutesDataDao.findByTimeStamp(
           CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
           CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
           .stream()
-          .collect(Collectors.groupingBy(CandleStickDetails::getSymbol))
-          .forEach((symbol, candleStickDetails) ->
-              fiveMinutesDataDao.save(
-                  aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
+          .collect(Collectors.groupingBy(FifteenMinutesDataDetails::getSymbol))
+          .forEach((symbol, fifteenMinutesDataDetails) ->
+              thirtyMinutesDataDao.save(
+                  aggregationDataMapper.getThirtyMinutesData(symbol, fifteenMinutesDataDetails, time)));
 
       if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_60
           == ConfigConstantUtils.DEFAULT_INTEGER) {
-        log.info("Thirty min executed");
-        runForThirtyMins(time);
+        log.info("Sixty min executed");
+        runForSixtyMins(time);
       }
     } catch (final Exception exp) {
       log.error("Error while Updating the Aggregating 30 min: {}", exp.getMessage());
