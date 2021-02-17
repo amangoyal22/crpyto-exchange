@@ -1,5 +1,6 @@
 package com.finance.crpyto.mapper;
 
+import com.finance.crpyto.constant.ConfigConstantUtils;
 import com.finance.crpyto.enums.RepoEnum;
 import com.finance.crpyto.model.repo.CandleStickDetails;
 import com.finance.crpyto.model.repo.FiveMinutesDataDetails;
@@ -48,6 +49,10 @@ public interface AggregationDataMapper {
           data.getTakerBuyBaseAssestVolume() + candleStickDetail.getTakerBuyBaseAssestVolume());
       data.setTakerBuyQuoteAssestVolume(
           data.getTakerBuyQuoteAssestVolume() + candleStickDetail.getTakerBuyQuoteAssestVolume());
+
+      if (data.getVolume() == ConfigConstantUtils.DEFAULT_DOUBLE) {
+        data.setFailureRate(data.getFailureRate() + 1);
+      }
     });
 
     if (Objects.nonNull(lastStick)) {

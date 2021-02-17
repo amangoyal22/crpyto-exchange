@@ -103,7 +103,11 @@ public class FiveMinutesDataDetails {
    */
   @Field("quote_assest_volume")
   private double quoteAssestVolume;
-
+  /**
+   * The Failure rate.
+   */
+  @Field("failure_rate")
+  private double failureRate;
   /**
    * The Status.
    */
