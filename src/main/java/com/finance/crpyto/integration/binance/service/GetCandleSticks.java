@@ -50,9 +50,9 @@ public class GetCandleSticks implements ICandleSticks {
   /**
    * Gets candle stick for 1 m.
    *
-   * @param time   the time
-   * @param symbol the symbol
-   * @return the candle stick for 1 m
+   * @param time                   the time
+   * @param symbol                 the symbol
+   * @param candleSticksDetailsDao the candle sticks details dao
    */
   @Override
   public void getCandleStickFor1m(final long time,
@@ -76,7 +76,8 @@ public class GetCandleSticks implements ICandleSticks {
   /**
    * Api call klines details.
    *
-   * @param symbol the symbol
+   * @param symbol    the symbol
+   * @param startTime the start time
    * @return the klines details
    */
   private KlinesDetails apiCall(final String symbol,
@@ -89,9 +90,10 @@ public class GetCandleSticks implements ICandleSticks {
       return responseMapper.getKlinesDetails1m(
           (List) CommonUtils.getObjectFromString(List.class, response.getResponseBody()));
     } catch (final Exception exp) {
-      log.error("Error while calling Kline {} For Time {}",
+      log.debug("Error while calling Kline {} For Time {} {}",
           exp.getMessage(),
-          CommonUtils.getTimeFromMiliToDateInUTC(startTime));
+          CommonUtils.getTimeFromMiliToDateInUTC(startTime),
+          symbol);
       return null;
     }
   }
@@ -99,7 +101,8 @@ public class GetCandleSticks implements ICandleSticks {
   /**
    * Gets klines url.
    *
-   * @param symbol the symbol
+   * @param symbol    the symbol
+   * @param startTime the start time
    * @return the klines url
    */
   private String getKlinesUrl(final String symbol,

@@ -59,8 +59,11 @@ public class DataAggregationComponent {
    */
   public void runForFiveMins(final long time) {
     try {
+      log.info("Five min data for {} - {}",
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS));
       candleSticksDetailsDao.findByTimeStamp(
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
           CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
           .stream()
           .collect(Collectors.groupingBy(CandleStickDetails::getSymbol))
@@ -69,7 +72,6 @@ public class DataAggregationComponent {
                   aggregationDataMapper.getFiveMinutesData(symbol, candleStickDetails, time)));
       if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_15
           == ConfigConstantUtils.DEFAULT_INTEGER) {
-        log.info("Fifteen min executed");
         runForFifteenMins(time);
       }
     } catch (final Exception exp) {
@@ -84,9 +86,12 @@ public class DataAggregationComponent {
    */
   public void runForFifteenMins(final long time) {
     try {
+      log.info("Fifteen min data for {} - {}",
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_15_MINUS));
       fiveMinutesDataDao.findByTimeStamp(
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_10_MINUS))
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_15_MINUS))
           .stream()
           .collect(Collectors.groupingBy(FiveMinutesDataDetails::getSymbol))
           .forEach((symbol, fiveMinutesDataDetails) ->
@@ -95,7 +100,6 @@ public class DataAggregationComponent {
 
       if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_30
           == ConfigConstantUtils.DEFAULT_INTEGER) {
-        log.info("Thirty min executed");
         runForThirtyMins(time);
       }
     } catch (final Exception exp) {
@@ -110,9 +114,12 @@ public class DataAggregationComponent {
    */
   public void runForThirtyMins(final long time) {
     try {
+      log.info("Thirty min data for {} - {}",
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_16_MINUS));
       fifteenMinutesDataDao.findByTimeStamp(
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_16_MINUS))
           .stream()
           .collect(Collectors.groupingBy(FifteenMinutesDataDetails::getSymbol))
           .forEach((symbol, fifteenMinutesDataDetails) ->
@@ -121,7 +128,6 @@ public class DataAggregationComponent {
 
       if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_60
           == ConfigConstantUtils.DEFAULT_INTEGER) {
-        log.info("Sixty min executed");
         runForSixtyMins(time);
       }
     } catch (final Exception exp) {
@@ -136,9 +142,12 @@ public class DataAggregationComponent {
    */
   public void runForSixtyMins(final long time) {
     try {
+      log.info("Sixty min data for {} - {}",
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_31_MINUS));
       thirtyMinutesDataDao.findByTimeStamp(
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_0),
-          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_5_MINUS))
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_1_PLUS),
+          CommonUtils.getDateMinus(time, Calendar.MINUTE, DataAggregationConstantUtils.MIN_31_MINUS))
           .stream()
           .collect(Collectors.groupingBy(ThirtyMinutesDataDetails::getSymbol))
           .forEach((symbol, thirtyMinutesDataDetails) ->
