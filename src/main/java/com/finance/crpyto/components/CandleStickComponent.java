@@ -94,7 +94,6 @@ public class CandleStickComponent implements Runnable {
   private void fiveMinutes(final long time) {
     if (CommonUtils.getUTCMinutes(time) % DataAggregationConstantUtils.MIN_5
         == ConfigConstantUtils.DEFAULT_INTEGER) {
-      log.info("Five min executed");
       CompletableFuture.runAsync(() -> dataAggregationComponent.runForFiveMins(time));
     }
   }
